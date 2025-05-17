@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRKdesuga | Portfolio</title>
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+
+<header id="hero">
+    <div class="container hero-content">
+        <img src="assets/img/me.jpg"
+             alt="Portrait of Hamza"
+             class="hero-avatar" />
+        <h1>Welcome to my Portfolio</h1>
+        <p>
+            Hi there! 👋 I'm Hamza, a passionate and curious software engineering
+            student in Computer Science with a knack for solving complex problems
+            and building scalable solutions. I thrive on learning new
+            technologies and exploring everything I can discover in the tech
+            world.<br><br>More in my GitHub <a href="https://github.com/DRKdesuga" target="_blank" rel="noopener">here</a>.
+        </p>
+    </div>
+</header>
+
+
+<main>
+    <section id="projects" class="container">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <article class="project-card" data-project="42sh">
+                <h3>42sh</h3>
+                <p>
+                    A POSIX-compliant UNIX shell with redirections, pipes, built-ins …
+                </p>
+            </article>
+
+
+            <article class="project-card" data-project="libzork">
+                <h3>libZork</h3>
+                <p>
+                    A C++ framework for graph-based interactive text-adventure stories.
+                </p>
+            </article>
+
+
+
+            <article class="project-card" data-project="mybt">
+                <h3>My‑BitTorrent</h3>
+                <p>Modular BitTorrent client in C with Meson build &amp; BEP specs.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+
+<template id="libzork-template">
+    <img src="assets/img/libzork-banner.png"
+         alt="libZork banner"
+         class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">libZork 📜 (On going)</h2>
+
+        <h3>Introduction</h3>
+        <p>
+            libZork is a C++ library that provides a framework for creating and
+            running interactive text-based adventure stories using a graph-based
+            system. Stories are written in YAML and executed by multiple runners.
+        </p>
+
+        <h3>Installation and Compilation</h3>
+        <pre><code>cmake -S . -B build
+cmake --build build</code></pre>
+
+        <h3>Running a Story</h3>
+        <pre><code>./build/zork --story &lt;path_to_story_yaml&gt;</code></pre>
+
+        <h4>Example</h4>
+        <pre><code>./build/zork --story tests/stories/secret/story.yaml</code></pre>
+
+        <h3>Story Format</h3>
+        <p>
+            Stories are defined in YAML where each node is a scene; choices let
+            players navigate between scenes under conditions.
+        </p>
+
+        <pre><code class="language-yaml">title: A Little Quest
+scripts-path: ../../scripts/little_quest
+story:
+  - name: forest
+    script: forest.txt
+    choices:
+      - text: Enter the house
+        target: house
+      - text: Enter the castle
+        target: castle
+      - text: Eat a fruit
+        target: forest
+  - name: house
+    script: house.txt
+    choices: []
+  - name: castle
+    script: castle.txt
+    choices:
+      - text: Flee
+        target: forest
+      - text: Kill the dragon
+        target: tower
+  - name: tower
+    script: tower.txt
+    choices: []</code></pre>
+
+        <h3>Features</h3>
+        <ul class="modal-features">
+            <li>Supports branching storylines</li>
+            <li>Conditional choices and actions</li>
+            <li>Multiple runner implementations</li>
+            <li>Graph-based structure for dynamic storytelling</li>
+        </ul>
+
+        <h3>Screenshots</h3>
+        <figure>
+            <img src="assets/img/libzork-story.png"
+                 alt="Story execution example"
+                 class="modal-screenshot" />
+            <figcaption class="caption">
+                Story Execution Example (tests/stories/secret)
+            </figcaption>
+        </figure>
+        <figure>
+            <img src="assets/img/libzork-graph.png"
+                 alt="Graph visualization"
+                 class="modal-screenshot" />
+            <figcaption class="caption">
+                Secret Story Graph Visualization
+            </figcaption>
+        </figure>
+    </div>
+</template>
+
+<template id="42sh-template">
+    <img src="assets/img/42sh-banner.png"
+         alt="42sh banner"
+         class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">42sh – A POSIX-Compliant UNIX Shell</h2>
+
+        <h3>Description</h3>
+        <p>
+            <strong>42sh</strong> is a POSIX-compliant UNIX command interpreter
+            developed as part of the EPITA project. It implements essential shell
+            features such as command execution, redirections, pipes, built-ins
+            and control structures.
+        </p>
+
+        <h3>Main Features</h3>
+        <ul class="modal-features">
+            <li>Simple command execution with arguments</li>
+            <li>Redirections <code>&gt;</code> <code>&gt;&gt;</code> <code>&lt;</code> <code>2&gt;</code></li>
+            <li>Pipelines via <code>|</code></li>
+            <li>Logical operators <code>&&</code> and <code>||</code></li>
+            <li>Control structures (<code>if</code>, <code>while</code>, <code>for</code>, <code>case</code>)</li>
+            <li>Sub-shells using parentheses</li>
+            <li>Environment variable management</li>
+            <li>Built-ins: <code>cd</code>, <code>exit</code>, <code>export</code>, <code>unset</code>, <code>echo</code>…</li>
+            <li>Alias support</li>
+        </ul>
+
+        <h3>Compilation&nbsp;&amp;&nbsp;Installation</h3>
+
+        <h4>Prerequisites</h4>
+        <ul>
+            <li>UNIX/Linux system</li>
+            <li>POSIX-compliant C compiler</li>
+            <li>GNU Autotools (Autoconf, Automake)</li>
+        </ul>
+
+        <h4>Compilation</h4>
+        <pre><code>autoreconf --install
+./configure
+make</code></pre>
+        <p>Binary output: <code>src/42sh</code></p>
+
+        <h4>Installation (optional)</h4>
+        <pre><code>./configure --prefix=/installation/path
+make install</code></pre>
+        <p>Binary installed to <code>/installation/path/bin/42sh</code></p>
+
+        <h3>Usage</h3>
+
+        <h4>Launching the shell</h4>
+        <pre><code>./src/42sh</code></pre>
+
+        <h4>Executing a script</h4>
+        <pre><code>./src/42sh script.sh</code></pre>
+
+        <h4>Running a command directly</h4>
+        <pre><code>./src/42sh -c "echo Hello, world!"</code></pre>
+
+        <h4>Running tests</h4>
+        <pre><code>make check</code></pre>
+
+    </div>
+</template>
+
+<template id="mybt-template">
+    <img src="assets/img/mybt-banner.png" alt="My‑BitTorrent banner" class="modal-banner" />
+    <div class="modal-content">
+        <h2 class="modal-title">My‑BitTorrent Client Project (Ongoing)</h2>
+
+        <h3>Description</h3>
+        <p>
+            This project is an ongoing implementation of a BitTorrent client. Its
+            goal is to enable peer‑to‑peer file downloads in full compliance with
+            official BitTorrent specifications. The codebase is modular, divided
+            into several libraries that each manage a specific layer of the
+            protocol. The <code>mbtnet</code> networking layer is still under active
+            development.
+        </p>
+
+        <h3>Compilation</h3>
+        <pre><code>meson setup build
+meson compile -C build</code></pre>
+        <p>The executable lands in <code>build/</code>. To clean:</p>
+        <pre><code>meson compile -C build clean</code></pre>
+
+        <h3>Usage</h3>
+        <pre><code>./mbt [options] file</code></pre>
+        <h4>Options</h4>
+        <ul class="modal-features">
+            <li><code>-m</code> / <code>--mktorrent</code> – Build a <code>.torrent</code> from a file/dir</li>
+            <li><code>-i</code> / <code>--bind-ip &lt;ip&gt;</code> – IPv4 to bind (default <code>0.0.0.0</code>)</li>
+            <li><code>-p</code> / <code>--bind-port &lt;port&gt;</code> – Port (default 6891+)</li>
+            <li><code>-P</code> / <code>--pretty-print-torrent-file</code> – Pretty‑print a torrent file</li>
+            <li><code>-v</code> / <code>--verbose</code> – Verbose logs</li>
+        </ul>
+
+        <h3>Project Structure</h3>
+        <h4>1. <code>mbtbe</code> – BitTorrent Encoding</h4>
+        <p>Parse &amp; generate <code>.torrent</code> files (bencoded).</p>
+        <h4>2. <code>mbtfile</code> – File Management <em>(in progress)</em></h4>
+        <p>Piece validation and disk I/O.</p>
+        <h4>3. <code>mbtnet</code> – Networking <em>(in progress)</em></h4>
+        <p>Peer connections &amp; piece exchange (asynchronous, <code>epoll</code>).</p>
+        <h4>4. <code>mbtutils</code> – Utilities</h4>
+        <p>Strings, views, memory helpers.</p>
+
+        <h3>Current Status</h3>
+        <ul class="modal-features">
+            <li><strong>Complete:</strong> Torrent parsing/creation, file handling, utils</li>
+            <li><strong>WIP:</strong> Peer networking (<code>mbtnet</code>)</li>
+        </ul>
+
+        <h3>Compilation Targets</h3>
+        <ul>
+            <li><code>mbt</code> – Main executable</li>
+            <li><code>libs/mbtutils/libmbtutils.so</code></li>
+            <li><code>libs/mbtbe/libmbtbe.so</code></li>
+            <li><code>libs/mbtfile/libmbtfile.so</code></li>
+            <li><code>libs/mbtnet/libmbtnet.so</code></li>
+        </ul>
+    </div>
+</template>
+
+
+<div id="projectModal" class="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+        <button class="close" aria-label="Close">&times;</button>
+    </div>
+</div>
+
+<footer>
+    <div class="container footer-content">
+        <ul class="socials">
+            <li><a href="https://www.linkedin.com/in/hamza-hannat-424a3b346/"
+                   target="_blank" rel="noopener"
+                   aria-label="LinkedIn profile">LinkedIn</a></li>
+            <li><a href="mailto:hamza.hannat@epita.fr">Email</a></li>
+            <li><a href="https://github.com/DRKdesuga" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a></li>
+        </ul>
+        <p>&copy; 2025 DRKdesuga</p>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

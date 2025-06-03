@@ -50,8 +50,31 @@
 
             <article class="project-card" data-project="mybt">
                 <h3>My‑BitTorrent</h3>
-                <p>Modular BitTorrent client in C with Meson build &amp; BEP specs.</p>
+                <p>Modular BitTorrent client in C with Meson build</p>
             </article>
+
+            <article class="project-card" data-project="malloc">
+                <h3>Malloc</h3>
+                <p>
+                    A custom dynamic memory allocator (malloc, free, realloc, calloc) in C.
+                </p>
+            </article>
+
+            <article class="project-card" data-project="jws">
+                <h3>JWS</h3>
+                <p>
+                    A distributed microservices game system in Java using Kafka and Quarkus.
+                </p>
+            </article>
+
+            <article class="project-card" data-project="myfind">
+                <h3>MyFind</h3>
+                <p>
+                    A simplified reimplementation of the UNIX `find` command in C building and parsing an AST.
+                </p>
+            </article>
+
+
         </div>
     </section>
 </main>
@@ -208,6 +231,50 @@ make install</code></pre>
     </div>
 </template>
 
+<template id="malloc-template">
+    <img src="assets/img/malloc-banner.png" alt="Malloc banner" class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">Custom Malloc Library 🧠</h2>
+
+        <h3>Makefile Commands</h3>
+        <ul class="modal-features">
+            <li><code>make library</code>: Produces <code>libmalloc.so</code></li>
+            <li><code>make clean</code>: Cleans generated files</li>
+        </ul>
+
+        <h3>Project Overview</h3>
+        <p>
+            This project implements a custom memory allocator in C. It redefines the standard memory functions:
+        </p>
+        <ul class="modal-features">
+            <li><code>malloc(size_t size)</code></li>
+            <li><code>free(void *ptr)</code></li>
+            <li><code>calloc(size_t number, size_t size)</code></li>
+            <li><code>realloc(void *ptr, size_t size)</code></li>
+        </ul>
+        <p>The compiled output is <code>libmalloc.so</code> and is used to override the standard allocator via preload mechanisms.</p>
+
+        <h3>Core Features</h3>
+        <ul class="modal-features">
+            <li><strong>Memory Alignment</strong>: Ensures <code>long double</code> alignment</li>
+            <li><strong>Multiple Pages</strong>: Supports non-contiguous page allocations</li>
+            <li><strong>Freeing Memory</strong>: Efficient management of released blocks</li>
+            <li><strong>Zero-Initialized Allocation</strong>: Implements <code>calloc</code> with overflow protection</li>
+            <li><strong>Reallocation</strong>: Smart resizing of memory blocks using <code>realloc</code></li>
+            <li><strong>Management</strong>: using blocks for a linked list implem (segmentation treatment...)</li>
+        </ul>
+
+        <h3>Debugging & Usage</h3>
+        <p>To test with your own program, use <code>LD_PRELOAD</code>:</p>
+        <pre><code>LD_PRELOAD=./libmalloc.so ./your_program</code></pre>
+
+        <h3>Example Workflow</h3>
+        <pre><code>make library
+LD_PRELOAD=./libmalloc.so ./your_program</code></pre>
+    </div>
+</template>
+
 <template id="mybt-template">
     <img src="assets/img/mybt-banner.png" alt="My‑BitTorrent banner" class="modal-banner" />
     <div class="modal-content">
@@ -267,6 +334,182 @@ meson compile -C build</code></pre>
     </div>
 </template>
 
+<template id="jws-template">
+    <img src="assets/img/jws-banner.png" alt="JWS banner" class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">🧩 JWS – Java Microservices Game Project</h2>
+
+        <h3>🎯 Project Goal</h3>
+        <p>
+            To implement a loosely coupled microservices ecosystem that simulates a dynamic game.
+            Each service has a single responsibility and communicates through Kafka events using a command/aggregate pattern.
+        </p>
+
+        <h3>🏗️ Architecture Overview</h3>
+        <pre><code>jws/
+├── common/                 # Shared module (commands, aggregates, DTOs, enums)
+├── inventory/              # Handles all inventory logic and storage (Kafka only)
+├── item-producer/          # Generates items based on map files (.epimap)
+├── shop/                   # Manages in-game shop features (buy/sell)
+└── viewer.tar.gz           # Provided game viewer tool
+</code></pre>
+
+        <h3>⚙️ Technologies Used</h3>
+        <ul class="modal-features">
+            <li>Java 17</li>
+            <li>Quarkus Framework</li>
+            <li>Kafka (event-driven architecture)</li>
+            <li>PostgreSQL with Hibernate Panache</li>
+            <li>Maven</li>
+        </ul>
+
+        <h3>🧠 Business Logic & Rules</h3>
+        <ul class="modal-features">
+            <li><strong>Inventory is the single source of truth</strong></li>
+            <li>Services never access each other's databases</li>
+            <li>Game lifecycle check is mandatory before any logic</li>
+            <li>Commands are sent, Aggregates are received and trusted</li>
+            <li>Data in Aggregates is always considered valid and final</li>
+            <li>Duplicate prevention: update if exists, insert otherwise</li>
+        </ul>
+
+        <h3>📦 Project Modules</h3>
+
+        <h4>common/</h4>
+        <p>Kafka commands, aggregates, DTOs, shared enums and utils</p>
+
+        <h4>inventory/</h4>
+        <ul>
+            <li>Listens to Kafka commands</li>
+            <li>Updates DB via aggregates</li>
+            <li>No REST API</li>
+        </ul>
+
+        <h4>item-producer/</h4>
+        <ul>
+            <li>Parses <code>.epimap</code> files</li>
+            <li>Provides REST endpoints defined in <code>openapi.yaml</code></li>
+            <li>Publishes item creation commands to Kafka</li>
+        </ul>
+
+        <h4>shop/</h4>
+        <ul>
+            <li>Handles purchase/sell logic via REST</li>
+            <li>Sends purchase/sell commands to Kafka</li>
+        </ul>
+
+        <h3>🚀 Running the Project</h3>
+
+        <h4>Prerequisites</h4>
+        <ul class="modal-features">
+            <li>Docker (for Kafka)</li>
+            <li>Java 17+</li>
+            <li>Maven</li>
+        </ul>
+
+        <h4>Start Kafka</h4>
+        <pre><code>docker compose up -d</code></pre>
+
+        <h4>Run services</h4>
+        <pre><code>cd inventory && ./mvnw quarkus:dev
+cd item-producer && ./mvnw quarkus:dev
+cd shop && ./mvnw quarkus:dev</code></pre>
+
+        <h3>✅ Development Standards</h3>
+        <ul class="modal-features">
+            <li>Respect module structure (converter/, domain/, data/, presentation/...)</li>
+            <li>Use <code>camelCase</code>, <code>ResourceType</code> enums, <code>LocalDateTime</code></li>
+            <li>Only boxed types (e.g., <code>Integer</code>, not <code>int</code>)</li>
+            <li>All models have getters/setters</li>
+            <li>Supports <code>.env</code> for config</li>
+        </ul>
+
+        <h3>📁 Assets</h3>
+        <ul>
+            <li><code>.epimap</code> → maps used by item-producer</li>
+            <li><code>viewer.tar.gz</code> → game visualizer</li>
+        </ul>
+
+        <h3>💡 Summary</h3>
+        <p>
+            JWS implements a clean microservice architecture with event sourcing, ensuring reliability and separation of concerns.
+            It leverages modern Java tools and async communication through Kafka.
+        </p>
+    </div>
+</template>
+
+<template id="myfind-template">
+    <img src="assets/img/myfind-banner.png" alt="MyFind banner" class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">MyFind 🔍 — Custom File Finder with AST Execution</h2>
+
+        <h3>Makefile Commands</h3>
+        <ul class="modal-features">
+            <li><code>make all</code>: Build the <code>myfind</code> binary</li>
+            <li><code>make clean</code>: Clean all generated files</li>
+            <li><code>make clear_obj</code>: Remove <code>.o</code> files</li>
+        </ul>
+
+        <h3>Project Overview</h3>
+        <p>
+            <code>myfind</code> is a custom implementation of the UNIX <code>find</code> tool written in C.
+            It parses logical file search expressions into an Abstract Syntax Tree (AST), which is then traversed for execution.
+        </p>
+
+        <h3>Supported Options</h3>
+
+        <h4>Search Options</h4>
+        <ul class="modal-features">
+            <li><code>-name</code> — match by file name</li>
+            <li><code>-newer</code> — newer than a given file</li>
+            <li><code>-perm</code> — match by permissions</li>
+            <li><code>-print</code>, <code>-delete</code></li>
+            <li><code>-user</code>, <code>-group</code></li>
+            <li><code>-type</code> — <code>b</code>, <code>c</code>, <code>d</code>, <code>f</code>, <code>l</code>, <code>p</code>, <code>s</code></li>
+        </ul>
+
+        <h4>Logical Operators</h4>
+        <ul class="modal-features">
+            <li><code>-a</code> — AND</li>
+            <li><code>-o</code> — OR</li>
+            <li><code>!</code> — NOT</li>
+        </ul>
+
+        <h3>AST Architecture</h3>
+        <p>
+            Expressions are parsed using the Shunting Yard algorithm and transformed into an AST structure. Each node represents an operation or filter.
+        </p>
+        <pre><code>struct node {
+    enum node_type type;
+    struct node *left, *right;
+    char *value;
+};</code></pre>
+        <p>Supported types include: <code>AND</code>, <code>OR</code>, <code>NOT</code>, <code>NAME</code>, <code>TYPE</code>, <code>NEWER</code>, etc.</p>
+
+        <h3>Usage Examples</h3>
+
+        <h4>🔁 Complex Logic</h4>
+        <pre><code>./myfind -name '*.c' -a \! \( \( -name 'main.c' -o -name 'stack.c' \) \)</code></pre>
+        <p><em>Output:</em></p>
+        <pre><code>./src/evaluate_ast.c
+./src/aux_functions.c
+./src/shuting_yard.c
+./src/tokenize.c</code></pre>
+
+        <h4>📂 Directory Search</h4>
+        <pre><code>./myfind src -name '*.h'</code></pre>
+        <p><em>Output:</em></p>
+        <pre><code>src/my_funs.h</code></pre>
+
+        <h3>Default Behavior</h3>
+        <p>
+            If no directory is passed, it defaults to the current directory (<code>.</code>), like the original <code>find</code> command.
+        </p>
+    </div>
+</template>
+
 
 <div id="projectModal" class="modal" aria-hidden="true">
     <div class="modal-dialog" role="dialog" aria-modal="true">
@@ -277,10 +520,6 @@ meson compile -C build</code></pre>
 <footer>
     <div class="container footer-content">
         <ul class="socials">
-            <li><a href="https://www.linkedin.com/in/hamza-hannat-424a3b346/"
-                   target="_blank" rel="noopener"
-                   aria-label="LinkedIn profile">LinkedIn</a></li>
-            <li><a href="mailto:hamza.hannat@epita.fr">Email</a></li>
             <li><a href="https://github.com/DRKdesuga" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a></li>
         </ul>
         <p>&copy; 2025 DRKdesuga</p>

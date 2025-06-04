@@ -37,7 +37,7 @@ https://github.com/yourusername/your-portfolio
 * `42sh` – POSIX-compliant shell
 * `libZork` – Graph-based text adventure engine
 * `My‑BitTorrent` – Modular BitTorrent client
-* `Malloc` – Custom dynamic memory allocator
+* `Tiger` – A modular compiler for the Tiger language with desugaring, AST, and IR support.
 * `JWS` – Java Microservices Game
 * `MyFind` – Simplified UNIX find with AST parsing
 

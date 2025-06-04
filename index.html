@@ -52,12 +52,13 @@
                 <p>Modular BitTorrent client in C with Meson build</p>
             </article>
 
-            <article class="project-card" data-project="malloc">
-                <h3>Malloc</h3>
+            <article class="project-card" data-project="tiger">
+                <h3>Tiger Compiler</h3>
                 <p>
-                    A custom dynamic memory allocator (malloc, free, realloc, calloc) in C.
+                    A modular compiler for the Tiger language with desugaring, AST, and IR support.
                 </p>
             </article>
+
 
             <article class="project-card" data-project="jws">
                 <h3>JWS</h3>
@@ -230,47 +231,69 @@ make install</code></pre>
     </div>
 </template>
 
-<template id="malloc-template">
-    <img src="assets/img/malloc-banner.png" alt="Malloc banner" class="modal-banner" />
+<template id="tiger-template">
+    <img src="assets/img/tiger-banner.png" alt="Tiger Compiler banner" class="modal-banner" />
 
     <div class="modal-content">
-        <h2 class="modal-title">Custom Malloc Library 🧠</h2>
+        <h2 class="modal-title">🐯 Tiger Compiler</h2>
 
-        <h3>Makefile Commands</h3>
-        <ul class="modal-features">
-            <li><code>make library</code>: Produces <code>libmalloc.so</code></li>
-            <li><code>make clean</code>: Cleans generated files</li>
-        </ul>
-
-        <h3>Project Overview</h3>
+        <h3>🧾 What It Does</h3>
         <p>
-            This project implements a custom memory allocator in C. It redefines the standard memory functions:
+            A complete modular compiler pipeline for the <strong>Tiger language</strong>, featuring lexical analysis, parsing, AST building, desugaring, and semantic analysis.
         </p>
-        <ul class="modal-features">
-            <li><code>malloc(size_t size)</code></li>
-            <li><code>free(void *ptr)</code></li>
-            <li><code>calloc(size_t number, size_t size)</code></li>
-            <li><code>realloc(void *ptr, size_t size)</code></li>
-        </ul>
-        <p>The compiled output is <code>libmalloc.so</code> and is used to override the standard allocator via preload mechanisms.</p>
 
-        <h3>Core Features</h3>
+        <h3>🛠 Key Features</h3>
+
+        <h4>✅ Lexical & Syntax Analysis</h4>
         <ul class="modal-features">
-            <li><strong>Memory Alignment</strong>: Ensures <code>long double</code> alignment</li>
-            <li><strong>Multiple Pages</strong>: Supports non-contiguous page allocations</li>
-            <li><strong>Freeing Memory</strong>: Efficient management of released blocks</li>
-            <li><strong>Zero-Initialized Allocation</strong>: Implements <code>calloc</code> with overflow protection</li>
-            <li><strong>Reallocation</strong>: Smart resizing of memory blocks using <code>realloc</code></li>
-            <li><strong>Management</strong>: using blocks for a linked list implem (segmentation treatment...)</li>
+            <li>Lexer built with Flex</li>
+            <li>Parser implemented using Bison</li>
+            <li>Tracks errors and source positions</li>
         </ul>
 
-        <h3>Debugging & Usage</h3>
-        <p>To test with your own program, use <code>LD_PRELOAD</code>:</p>
-        <pre><code>LD_PRELOAD=./libmalloc.so ./your_program</code></pre>
+        <h4>🌲 AST Construction</h4>
+        <ul class="modal-features">
+            <li>Hierarchical typed AST via <code>tweast</code></li>
+            <li>Node types include <code>unit</code>, <code>apply</code>, <code>list</code>, etc.</li>
+            <li>Supports debug printing and dumping</li>
+        </ul>
 
-        <h3>Example Workflow</h3>
-        <pre><code>make library
-LD_PRELOAD=./libmalloc.so ./your_program</code></pre>
+        <h4>🧪 Desugaring</h4>
+        <ul class="modal-features">
+            <li>Transforms syntactic sugar (like <code>for</code>) into core constructs</li>
+            <li>Handled in the compiler's middle-end</li>
+        </ul>
+
+        <h4>🧠 Semantic Analysis</h4>
+        <ul class="modal-features">
+            <li>Scope and name resolution via <code>metavar-map</code></li>
+            <li>Prepares AST for future type checking</li>
+        </ul>
+
+        <h4>🔧 Intermediate Representation</h4>
+        <ul class="modal-features">
+            <li>Desugared AST acts as the IR</li>
+            <li>Flattened, simplified, backend-ready structure</li>
+        </ul>
+
+        <h3>🚀 Usage</h3>
+        <pre><code>./bootstrap
+./configure
+make
+./tc path/to/file.tig</code></pre>
+
+        <h3>📚 Language Features</h3>
+        <ul class="modal-features">
+            <li>Statically typed</li>
+            <li>Control flow: <code>if</code>, <code>while</code>, <code>for</code></li>
+            <li>Arrays, records, nested functions</li>
+            <li><code>let ... in ... end</code> blocks</li>
+        </ul>
+
+        <h3>👥 Authors & Credits</h3>
+        <p>
+            Based on the Tiger language from <em>Modern Compiler Implementation in ML</em> by Andrew Appel.
+        </p>
     </div>
 </template>
 

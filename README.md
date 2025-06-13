@@ -39,7 +39,7 @@ https://github.com/yourusername/your-portfolio
 * `My‑BitTorrent` – Modular BitTorrent client
 * `Tiger` – A modular compiler for the Tiger language with desugaring, AST, and IR support.
 * `JWS` – Java Microservices Game
-* `MyFind` – Simplified UNIX find with AST parsing
+* `ERO` – Graph-based routing project for drone and snowplow optimization using OSM data. 
 
 Each card opens a modal with:
 

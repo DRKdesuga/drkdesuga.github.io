@@ -68,12 +68,13 @@
                 </p>
             </article>
 
-            <article class="project-card" data-project="myfind">
-                <h3>MyFind</h3>
+            <article class="project-card" data-project="ero">
+                <h3>ERO1</h3>
                 <p>
-                    A simplified reimplementation of the UNIX `find` command in C building and parsing an AST.
+                    Graph-based routing project for drone and snowplow optimization using OSM data.
                 </p>
             </article>
+
 
 
         </div>
@@ -462,74 +463,89 @@ cd shop && ./mvnw quarkus:dev</code></pre>
     </div>
 </template>
 
-<template id="myfind-template">
-    <img src="assets/img/myfind-banner.png" alt="MyFind banner" class="modal-banner" />
+<template id="ero-template">
+    <img src="assets/img/ero-banner.png" alt="EPITA‑ERO1 banner" class="modal-banner" />
 
     <div class="modal-content">
-        <h2 class="modal-title">MyFind 🔍 — Custom File Finder with AST Execution</h2>
+        <h2 class="modal-title">ERO1 – Optimized Routing on Urban Graphs 🗘️</h2>
 
-        <h3>Makefile Commands</h3>
+        <h3>📖 Description</h3>
+        <p>
+            <strong>ERO1</strong> is a Python project in the field of <em>operations research</em> It provides tools to:
+        </p>
         <ul class="modal-features">
-            <li><code>make all</code>: Build the <code>myfind</code> binary</li>
-            <li><code>make clean</code>: Clean all generated files</li>
-            <li><code>make clear_obj</code>: Remove <code>.o</code> files</li>
+            <li>Model urban road networks as directed graphs using OSM data</li>
+            <li>Develop and compare route coverage algorithms under budget constraints</li>
+            <li>Simulate drone flights or snowplow operations with cost/time optimization</li>
         </ul>
 
-        <h3>Project Overview</h3>
-        <p>
-            <code>myfind</code> is a custom implementation of the UNIX <code>find</code> tool written in C.
-            It parses logical file search expressions into an Abstract Syntax Tree (AST), which is then traversed for execution.
-        </p>
-
-        <h3>Supported Options</h3>
-
-        <h4>Search Options</h4>
+        <h4>Budgetary & Operational Goals</h4>
         <ul class="modal-features">
-            <li><code>-name</code> — match by file name</li>
-            <li><code>-newer</code> — newer than a given file</li>
-            <li><code>-perm</code> — match by permissions</li>
-            <li><code>-print</code>, <code>-delete</code></li>
-            <li><code>-user</code>, <code>-group</code></li>
-            <li><code>-type</code> — <code>b</code>, <code>c</code>, <code>d</code>, <code>f</code>, <code>l</code>, <code>p</code>, <code>s</code></li>
+            <li>Machine cost modeling: Type 1 & 2, fixed/variable costs</li>
+            <li>Mission budget and runtime integrated into evaluation metrics</li>
+            <li>Each algorithm is assessed by its operational performance (distance, time, budget)</li>
+            <li>
+                Comparative testing of classical graph algorithms:
+                <ul style="padding-left: 1.2em; list-style-type: '▸ ';">
+                    <li><strong>Coverage</strong>: Eulerian Path, Chinese Postman, DFS...</li>
+                    <li><strong>Shortest Path</strong>: Dijkstra, A*, Bellman-Ford...</li>
+                </ul>
+            </li>
         </ul>
 
-        <h4>Logical Operators</h4>
+
+
+
+        <h3>🚀 Installation</h3>
+        <h4>Prerequisites</h4>
         <ul class="modal-features">
-            <li><code>-a</code> — AND</li>
-            <li><code>-o</code> — OR</li>
-            <li><code>!</code> — NOT</li>
+            <li>Python 3.9+</li>
+            <li>pip</li>
         </ul>
 
-        <h3>AST Architecture</h3>
-        <p>
-            Expressions are parsed using the Shunting Yard algorithm and transformed into an AST structure. Each node represents an operation or filter.
-        </p>
-        <pre><code>struct node {
-    enum node_type type;
-    struct node *left, *right;
-    char *value;
-};</code></pre>
-        <p>Supported types include: <code>AND</code>, <code>OR</code>, <code>NOT</code>, <code>NAME</code>, <code>TYPE</code>, <code>NEWER</code>, etc.</p>
+        <h4>Project Setup</h4>
+        <pre><code>./setup.sh
+source ero_env/bin/activate</code></pre>
+        <p><em>Remember to update <code>requirements.txt</code> if adding dependencies.</em></p>
 
-        <h3>Usage Examples</h3>
+        <h3>🗘️ Usage</h3>
+        <pre><code># CLI
+python cli.py
 
-        <h4>🔁 Complex Logic</h4>
-        <pre><code>./myfind -name '*.c' -a \! \( \( -name 'main.c' -o -name 'stack.c' \) \)</code></pre>
-        <p><em>Output:</em></p>
-        <pre><code>./src/evaluate_ast.c
-./src/aux_functions.c
-./src/shuting_yard.c
-./src/tokenize.c</code></pre>
+# Optional GUI
+python gui.py</code></pre>
 
-        <h4>📂 Directory Search</h4>
-        <pre><code>./myfind src -name '*.h'</code></pre>
-        <p><em>Output:</em></p>
-        <pre><code>src/my_funs.h</code></pre>
+        <h3>📂 Project Structure</h3>
+        <pre><code>ERO/
+├── AUTHORS
+├── ERO.pdf
+├── README.md
+├── cli.py
+├── drone
+│   ├── __init__.py
+│   ├── drone_cost.py
+│   ├── eulerian_path.py
+│   ├── graph_builder.py
+│   └── montreal_graph.graphml
+├── requirements.txt
+├── setup.sh
+├── snowplow
+│   ├── __init__.py
+│   ├── postman_path.py
+│   ├── sector_builder.py
+│   └── snowplow_cost.py
+└── utils
+    └── graph_utils.py
 
-        <h3>Default Behavior</h3>
-        <p>
-            If no directory is passed, it defaults to the current directory (<code>.</code>), like the original <code>find</code> command.
-        </p>
+        </code></pre>
+
+        <h3>🛠️ Technologies</h3>
+        <ul class="modal-features">
+            <li><code>OSMnx</code> / <code>NetworkX</code> — Graph algorithms</li>
+            <li><code>Matplotlib</code> / <code>Folium</code> — Visualizations</li>
+            <li><code>Tkinter</code> — Optional GUI</li>
+        </ul>
+
     </div>
 </template>
 

@@ -34,12 +34,18 @@ https://github.com/yourusername/your-portfolio
 
 ## 🧠 Project Cards Included
 
-* `42sh` – POSIX-compliant shell
-* `libZork` – Graph-based text adventure engine
-* `My‑BitTorrent` – Modular BitTorrent client
+## 🧠 Project Cards Included
+
+* `42sh` – POSIX-compliant shell with pipes, redirections, control structures, and built-ins.
+* `libZork` – Graph-based text adventure engine written in C++ with YAML stories.
+* `My-BitTorrent` – Modular BitTorrent client in C with Meson build system.
 * `Tiger` – A modular compiler for the Tiger language with desugaring, AST, and IR support.
-* `JWS` – Java Microservices Game
-* `ERO` – Graph-based routing project for drone and snowplow optimization using OSM data. 
+* `JWS` – Java Microservices Game project built with Quarkus, Kafka, and PostgreSQL.
+* `ERO` – Graph-based routing project for drone and snowplow optimization using OSM data.
+* `PING` – Quarkus + React workspace manager with JWT auth, project/folder/file APIs, and OpenAPI docs.
+* `Nexus Backend` – Spring Boot REST API for a smart assistant, integrating Spotify & GPT.
+* `Sysalias` – Lightweight C CLI to manage shell aliases (bash/zsh) in a centralized JSON registry.
+
 
 Each card opens a modal with:
 

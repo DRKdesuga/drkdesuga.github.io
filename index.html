@@ -31,26 +31,12 @@
     <section id="projects" class="container">
         <h2>Featured Projects</h2>
         <div class="projects-grid">
-            <article class="project-card" data-project="42sh">
-                <h3>42sh</h3>
+
+            <article class="project-card" data-project="ping">
+                <h3>PING</h3>
                 <p>
-                    A POSIX-compliant UNIX shell with redirections, pipes, built-ins …
+                    Quarkus + React workspace manager with JWT auth, projects, folders & files APIs.
                 </p>
-            </article>
-
-
-            <article class="project-card" data-project="libzork">
-                <h3>libZork</h3>
-                <p>
-                    A C++ framework for graph-based interactive text-adventure stories.
-                </p>
-            </article>
-
-
-
-            <article class="project-card" data-project="mybt">
-                <h3>My‑BitTorrent</h3>
-                <p>Modular BitTorrent client in C with Meson build</p>
             </article>
 
             <article class="project-card" data-project="tiger">
@@ -60,6 +46,12 @@
                 </p>
             </article>
 
+            <article class="project-card" data-project="42sh">
+                <h3>42sh</h3>
+                <p>
+                    A POSIX-compliant UNIX shell with redirections, pipes, built-ins …
+                </p>
+            </article>
 
             <article class="project-card" data-project="jws">
                 <h3>JWS</h3>
@@ -74,6 +66,35 @@
                     Graph-based routing project for drone and snowplow optimization using OSM data.
                 </p>
             </article>
+
+            <article class="project-card" data-project="nxus">
+                <h3>Nexus Backend</h3>
+                <p>
+                    Spring Boot REST API for an assistant, integrating Spotify & GPT with modular design.
+                </p>
+            </article>
+
+            <article class="project-card" data-project="mybt">
+                <h3>My‑BitTorrent</h3>
+                <p>Modular BitTorrent client in C with Meson build</p>
+            </article>
+
+
+            <article class="project-card" data-project="libzork">
+                <h3>libZork</h3>
+                <p>
+                    A C++ framework for graph-based interactive text-adventure stories.
+                </p>
+            </article>
+
+
+            <article class="project-card" data-project="sysalias">
+                <h3>Sysalias</h3>
+                <p>
+                    Lightweight C CLI tool to manage shell aliases (bash/zsh) in a centralized JSON registry.
+                </p>
+            </article>
+
 
 
 
@@ -546,6 +567,266 @@ python gui.py</code></pre>
             <li><code>Tkinter</code> — Optional GUI</li>
         </ul>
 
+    </div>
+</template>
+
+<template id="ping-template">
+    <img src="assets/img/ping-banner.png"
+         alt="PING banner"
+         class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">PING – Project Workspace Manager (Quarkus + React)</h2>
+
+        <h3>Introduction</h3>
+        <p>
+            <strong>PING</strong> is a lightweight project workspace manager providing:
+            user authentication (JWT), project management, folders & files CRUD (upload/move/delete),
+            and a simple frontend to interact with the REST API. Built with <em>Quarkus 3.17 (Java 21)</em>,
+            <em>PostgreSQL</em>, and <em>Vite React</em>.
+        </p>
+
+        <h3>Key Features</h3>
+        <ul class="modal-features">
+            <li>JWT-based authentication (RSA dev keys included)</li>
+            <li>Projects: list, get, add user</li>
+            <li>Folders: list, create, move, delete</li>
+            <li>Files: list, upload, move, delete (multipart)</li>
+            <li>OpenAPI 3 specification (<code>openapi.yml</code>)</li>
+        </ul>
+
+        <h3>Backend – Quarkus</h3>
+        <h4>Requirements</h4>
+        <ul>
+            <li>Java 21, Maven 3.9+</li>
+            <li>PostgreSQL (default: <code>jdbc:postgresql://localhost:5432/ping</code>, user <code>postgres</code>)</li>
+        </ul>
+
+        <h4>Database Setup</h4>
+        <pre><code>createdb ping
+psql -d ping -f ping/src/main/resources/setup.sql
+</code></pre>
+
+        <h4>Run (dev)</h4>
+        <pre><code>cd ping
+mvn clean quarkus:dev
+# http://localhost:8080
+</code></pre>
+
+        <h3>Frontend – Vite React</h3>
+        <pre><code>cd ping-frontend
+npm install
+npm run dev
+# http://localhost:5173
+</code></pre>
+        <p><em>Optional (Electron dev):</em></p>
+        <pre><code>npm run start:dev
+</code></pre>
+
+        <h3>API Overview</h3>
+        <h4>Auth</h4>
+        <ul>
+            <li><code>POST /api/user/login</code></li>
+            <li><code>GET  /api/user/refresh</code></li>
+        </ul>
+
+        <h4>Projects</h4>
+        <ul>
+            <li><code>GET  /api/projects/all</code></li>
+            <li><code>GET  /api/projects/{id}</code></li>
+            <li><code>POST /api/projects/all</code></li>
+            <li><code>POST /api/projects/{id}/add-user</code></li>
+        </ul>
+
+        <h4>Folders</h4>
+        <ul>
+            <li><code>GET  /api/projects/{projectId}/folders</code></li>
+            <li><code>POST /api/projects/{projectId}/folders</code></li>
+            <li><code>PUT  /api/projects/{projectId}/folders/move</code></li>
+            <li><code>DELETE /api/projects/{projectId}/folders</code></li>
+        </ul>
+
+        <h4>Files</h4>
+        <ul>
+            <li><code>GET  /api/projects/{projectId}/files</code></li>
+            <li><code>POST /api/projects/{projectId}/files</code></li>
+            <li><code>POST /api/projects/{projectId}/files/upload</code></li>
+            <li><code>PUT  /api/projects/{projectId}/files/move</code></li>
+            <li><code>DELETE /api/projects/{projectId}/files</code></li>
+        </ul>
+
+        <h3>Quick Start (cURL)</h3>
+        <p><em>Default dev users are seeded by <code>setup.sql</code>, e.g.:</em> <code>admin_user/adminpass</code>,
+            <code>lambda_user/baguette</code>.</p>
+        <pre><code># 1) Login → get JWT
+curl -X POST http://localhost:8080/api/user/login \
+  -H "Content-Type: application/json" \
+  -d '{"login":"admin_user","password":"adminpass"}'
+
+# 2) List projects (replace $JWT)
+curl http://localhost:8080/api/projects/all \
+  -H "Authorization: Bearer $JWT"
+
+# 3) Upload a file to a project
+curl -X POST http://localhost:8080/api/projects/&lt;projectId&gt;/files/upload \
+  -H "Authorization: Bearer $JWT" \
+  -F "file=@README.md"
+</code></pre>
+
+        <h3>OpenAPI</h3>
+        <p>
+            Import <code>ping/src/main/resources/openapi.yml</code> into your API client
+            (Insomnia/Swagger UI) for live documentation and request samples.
+        </p>
+    </div>
+</template>
+
+
+<template id="nxus-template">
+    <img src="assets/img/nxus-banner.png"
+         alt="Nexus Backend banner"
+         class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">🎧 Nexus Backend – Java Spring Boot API</h2>
+
+        <h3>Introduction</h3>
+        <p>
+            <strong>Nexus</strong> is the backend for a personal smart assistant, exposing REST endpoints
+            for <em>Spotify</em> (OAuth, search, playback, playlists) and <em>OpenAI GPT</em> (text generation).
+            Built with <em>Spring Boot 3</em>, it follows a clean layered architecture:
+            controller → service → dto/errors.
+        </p>
+
+        <h3>Tech Stack</h3>
+        <ul class="modal-features">
+            <li>Java 17 + Spring Boot</li>
+            <li>Spring Web & WebClient</li>
+            <li>OpenAPI / Swagger UI</li>
+            <li>Docker & Docker Compose</li>
+            <li>Maven</li>
+        </ul>
+
+        <h3>Configuration</h3>
+        <pre><code># application.properties
+spotify.client.id=your_spotify_client_id
+spotify.client.secret=your_spotify_client_secret
+spotify.redirect.uri=http://localhost:8080/spotify/callback
+gpt.key=your_openai_api_key
+</code></pre>
+
+        <h3>Available Endpoints</h3>
+        <h4>🎵 Spotify</h4>
+        <ul>
+            <li><code>GET /spotify/login</code> – start OAuth flow</li>
+            <li><code>GET /spotify/callback?code=...</code> – exchange code for tokens</li>
+            <li><code>POST /spotify/search</code> – search track</li>
+            <li><code>POST /spotify/play</code> – play a track</li>
+            <li><code>POST /spotify/pause</code> – pause playback</li>
+            <li><code>POST /spotify/next</code> – next track</li>
+            <li><code>POST /spotify/previous</code> – previous track</li>
+            <li><code>POST /spotify/playplaylist</code> – play playlist by name</li>
+        </ul>
+
+        <h4>🤖 GPT</h4>
+        <ul>
+            <li><code>POST /gpt/ask</code> – ask a prompt to GPT</li>
+        </ul>
+
+        <h3>Run the Backend</h3>
+        <pre><code># Local run
+mvn spring-boot:run
+
+# Docker
+docker-compose up --build
+</code></pre>
+        <p>Swagger UI available at <a href="http://localhost:8080/swagger-ui/index.html" target="_blank">http://localhost:8080/swagger-ui/index.html</a></p>
+
+        <h3>Screenshots</h3>
+        <figure>
+            <img src="assets/img/nxus-spotify.png" alt="Spotify demo" class="modal-screenshot" />
+            <figcaption class="caption">Spotify Search & Play endpoints</figcaption>
+        </figure>
+        <figure>
+            <img src="assets/img/nxus-gpt.png" alt="GPT demo" class="modal-screenshot" />
+            <figcaption class="caption">GPT prompt/response demo</figcaption>
+        </figure>
+
+        <h3>Status & Roadmap</h3>
+        <ul class="modal-features">
+            <li>✅ Spotify OAuth + playback API</li>
+            <li>✅ GPT text generation</li>
+            <li>🔜 Queue management</li>
+            <li>🔜 Alarm & reminder API</li>
+            <li>🔜 Database persistence</li>
+            <li>🔜 Full voice assistant loop</li>
+        </ul>
+    </div>
+</template>
+
+<template id="sysalias-template">
+    <img src="assets/img/sysalias-banner.png"
+         alt="Sysalias banner"
+         class="modal-banner" />
+
+    <div class="modal-content">
+        <h2 class="modal-title">🖥️ Sysalias – Centralized Alias Manager</h2>
+
+        <h3>Introduction</h3>
+        <p>
+            <strong>Sysalias</strong> is a lightweight tool written in C to manage your shell aliases
+            (<code>bash</code> and <code>zsh</code>) from a centralized JSON registry.
+            It simplifies alias creation, synchronization, import/export, and backup.
+        </p>
+
+        <h3>Key Features</h3>
+        <ul class="modal-features">
+            <li>Add, remove, and list aliases stored in a JSON registry</li>
+            <li>Automatic sync with <code>.bashrc</code> and <code>.zshrc</code></li>
+            <li>Generates clean fragments (<code>aliases.bash</code>, <code>aliases.zsh</code>)</li>
+            <li>Integration checks with <code>doctor</code></li>
+            <li>Import/export aliases for sharing or backup</li>
+        </ul>
+
+        <h3>Installation</h3>
+        <h4>Using Make</h4>
+        <pre><code>make
+sudo make install
+# uninstall
+sudo make uninstall
+</code></pre>
+
+        <h4>Using scripts</h4>
+        <pre><code>./scripts/install.sh
+sudo ./scripts/install.sh --system
+./scripts/uninstall.sh
+</code></pre>
+
+        <h3>Usage</h3>
+        <pre><code>sysalias help</code></pre>
+
+        <h4>Add Alias</h4>
+        <pre><code>sysalias add NAME=BODY
+sysalias add --shell zsh NAME=BODY
+sysalias sync</code></pre>
+
+        <h4>Remove Alias</h4>
+        <pre><code>sysalias rm NAME
+sysalias sync</code></pre>
+
+        <h4>List Aliases</h4>
+        <pre><code>sysalias list</code></pre>
+
+        <h4>Export/Import</h4>
+        <pre><code>sysalias export > my_aliases.json
+sysalias import my_aliases.json</code></pre>
+
+        <h3>Project Details</h3>
+        <ul class="modal-features">
+            <li>Language: C (portable across Linux shells)</li>
+            <li>Makefile & install scripts</li>
+            <li>JSON registry under <code>~/.config/sysalias/aliases.json</code></li>
+        </ul>
     </div>
 </template>
 
